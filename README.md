@@ -5,6 +5,8 @@ It takes some time to calculate the prime numbers until 600:
 
 ![TFT Gizmo](docs/gizmo_prime.jpg)
 
+It's not the fastest. With CodeHS this takes 6.7 ms and on ubuntu 20.04 with python3 just 0.324 ms. Compiled with gcc down to 14 µs or 0.000014 seconds. With output to the terminal. Some 848000x faster.
+
 ## Code to drive the display
 
 Even though the display is slow, it is easy to implement with the right CircuitPython image with `displayio` integrated:
