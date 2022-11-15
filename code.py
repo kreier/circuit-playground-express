@@ -1,34 +1,23 @@
-# SPDX-FileCopyrightText: 2017 Limor Fried for Adafruit Industries
-#
-# SPDX-License-Identifier: MIT
+import displayio
+from adafruit_gizmo import tft_gizmo
+display = tft_gizmo.TFT_Gizmo()
 
-"""CircuitPython I2C Device Address Scan"""
-# If you run this and it seems to hang, try manually unlocking
-# your I2C bus from the REPL with
-#  >>> import board
-#  >>> board.I2C().unlock()
-
-import time
-import board
-
-# To use default I2C bus (most boards)
-i2c = board.I2C()
-
-# To create I2C bus on specific pins
-# import busio
-# i2c = busio.I2C(board.SCL1, board.SDA1)  # QT Py RP2040 STEMMA connector
-# i2c = busio.I2C(board.GP1, board.GP0)    # Pi Pico RP2040
-
-while not i2c.try_lock():
-    pass
-
-try:
-    while True:
-        print(
-            "I2C addresses found:",
-            [hex(device_address) for device_address in i2c.scan()],
-        )
-        time.sleep(2)
-
-finally:  # unlock the i2c bus when ctrl-c'ing out of the loop
-    i2c.unlock()
+import math, time
+last = 600
+found = 4          # we start from 11, know 2, 3, 5, 7
+print(f"Prime numbers to {last}")
+print('2, 3, 5, 7',end='')
+start = time.monotonic()
+for number in range(11, last, 2):
+    prime = True
+    for divider in range(3, int(math.sqrt(number))+1, 2):
+        if number % divider == 0:
+            prime = False
+            break
+    if prime:
+        print(",", number, end='')
+        found += 1
+        prime = 1
+end = time.monotonic()
+print(f"\nThis took: {(end - start)} seconds.")
+print(f"I found {found} prime numbers.")
