@@ -3,7 +3,7 @@ Collection of example programs that run on the CircuitPlayground Express. Some a
 
 It takes some time to calculate the prime numbers until 600:
 
-![TFT Gizmo]()
+![TFT Gizmo](docs/gizmo_prime.jpg)
 
 ## Code to drive the display
 
