@@ -4,6 +4,7 @@ from digitalio import DigitalInOut, Direction, Pull
 
 button = DigitalInOut(board.BUTTON_B)
 button.direction = Direction.INPUT
+button.pull = Pull.DOWN
 
 num_pixels = 10
 
@@ -18,3 +19,5 @@ while not button.value:
                 neo[y] = (0,0,0)
         time.sleep(0.02)
         neo.show()
+
+print("Aborted")
