@@ -1,23 +1,23 @@
-import displayio
-from adafruit_gizmo import tft_gizmo
-display = tft_gizmo.TFT_Gizmo()
+# Ten circulating NeoPixel example
+import time, board, neopixel
+from digitalio import DigitalInOut, Direction, Pull
 
-import math, time
-last = 600
-found = 4          # we start from 11, know 2, 3, 5, 7
-print(f"Prime numbers to {last}")
-print('2, 3, 5, 7',end='')
-start = time.monotonic()
-for number in range(11, last, 2):
-    prime = True
-    for divider in range(3, int(math.sqrt(number))+1, 2):
-        if number % divider == 0:
-            prime = False
-            break
-    if prime:
-        print(",", number, end='')
-        found += 1
-        prime = 1
-end = time.monotonic()
-print(f"\nThis took: {(end - start)} seconds.")
-print(f"I found {found} prime numbers.")
+button = DigitalInOut(board.BUTTON_B)
+button.direction = Direction.INPUT
+button.pull = Pull.DOWN
+
+num_pixels = 10
+
+neo = neopixel.NeoPixel(board.NEOPIXEL, num_pixels, brightness=0.1, auto_write=False)
+
+while not button.value:
+    for x in range(10):
+        for y in range(10):
+            if x == y:
+                neo[y] = (255,0,0)
+            else:
+                neo[y] = (0,0,0)
+        time.sleep(0.02)
+        neo.show()
+
+print("Aborted")
